@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.Button
@@ -44,18 +45,21 @@ fun App() {
             Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Spacer(modifier = Modifier.height(32.dp))
-
+            var counter by remember { mutableStateOf(0) }
+            Text("IME Actions counter: $counter")
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        counter++
+                    }
                 )
             )
-            Spacer(modifier = Modifier.height(32.dp))
             Button(
                 onClick = { visible = true }
             ) {
@@ -64,16 +68,6 @@ fun App() {
 
             if (visible)
                 Dialog(
-                    onDismissRequest = { visible = false  }
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(150.dp)
-                            .background(MaterialTheme.colorScheme.primary)
-                    )
-                }
-               /* ModalBottomSheet(
                     onDismissRequest = { visible = false }
                 ) {
                     Box(
@@ -82,7 +76,17 @@ fun App() {
                             .height(150.dp)
                             .background(MaterialTheme.colorScheme.primary)
                     )
-                }*/
+                }
+            /* ModalBottomSheet(
+                 onDismissRequest = { visible = false }
+             ) {
+                 Box(
+                     modifier = Modifier
+                         .fillMaxWidth()
+                         .height(150.dp)
+                         .background(MaterialTheme.colorScheme.primary)
+                 )
+             }*/
         }
     }
 }
